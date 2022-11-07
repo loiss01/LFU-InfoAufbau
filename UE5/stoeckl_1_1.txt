@@ -1,0 +1,17 @@
+To save the state of the current game, I would create a new class called „gameState“. I chose a class for better handing of different savestates.
+
+
+The "gameState" class contains a variable of the type list. The list has 9 entries each entry is a string of these strings {"null", "green", "red"}. 
+Further has the "gameState" class the necessary setter and getter methods. With those the saving and receiving of date is more easily. 
+
+1-2-3 
+4-5-6 
+7-8-9 
+
+Each entry of the list is representing of one field of the gameboard. For example top left is the first entry in the list,
+the middle entry of the 2nd row is the 5th entry of the list,... 
+
+To call the entry is would go something like this:
+gameState.getField(4);
+to save:
+gameState.setField(2,”green”);
