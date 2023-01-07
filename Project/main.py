@@ -1,11 +1,15 @@
 from GameState import *
 from random import randint
+from tiger import *
 
 #Snake Game in 10x10 grid
 
 # Set the Size of the Gamefielde 10x10
 GRIDSIZE = 10
+
+
 GameState = GameState(GRIDSIZE)
+gui = tiger()
 apple = False
 
 # Returns a free GridSpot
@@ -47,6 +51,7 @@ def move():
                 break
             newSnake.append(GameState.getSnake()[i])
         GameState.setSnake(newSnake)
+        print(newSnake)
 
     if movement == direction.left:
 
@@ -91,22 +96,22 @@ def move():
             if i == len(GameState.getSnake()) - 1:
                 break
             newSnake.append(GameState.getSnake()[i])
-        GameState.setSnake(newSnake)
+    GameState.setSnake(newSnake)
 
 
 # Debug printout
 def debug():
-    print(GameState.getSnake())
-    print(GameState.getGrid())
+    print("Debug", GameState.getSnake())
+    print("Debug", GameState.getGrid())
 
 
 # Game Tick every 0.5 Seconds
 def tick():
+    debug()
     if not apple:
-        print(getFreeRadomGridSpot(GameState.grid))
+        print(getFreeRadomGridSpot(GameState.getGrid()))
         pass
     move()
-
     updateGrid(GameState.getSnake(), getFreeRadomGridSpot(GameState.getGrid()))
 
 
@@ -128,9 +133,17 @@ def updateGrid(snake, applepos):
 
     grid[applepos[0]][applepos[1]] = GameState.gridStates.apple
     GameState.setGrid(grid)
+    gui.updateGrid(grid)
+    print(grid)
+    
 
 
-tick()
-debug()
-tick()
-debug()
+while (True):
+    time.sleep(0.5)
+    tick()
+    print("tick")
+
+#tick()
+#debug()
+#tick()
+#debug()

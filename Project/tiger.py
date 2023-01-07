@@ -1,9 +1,16 @@
 from gpanel import *
-import time
+
+class tiger:
+
+
+    def updateGrid(self, grid):
+        self.grid = grid
+        drawBoard()
+    pass
 
 GRIDSIZE = 10
 
-data = [[None, None, "Snake", "Snake", "Snake", "Snake", None, None, None, None],
+grid = [[None, None, "Snake", "Snake", "Snake", "Snake", None, None, None, None],
         [None, None, None, None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None, None, None, None],
@@ -12,19 +19,21 @@ data = [[None, None, "Snake", "Snake", "Snake", "Snake", None, None, None, None]
         [None, None, None, None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None, None, None, None],
-        [None, None, None, None, None, None, None, "Apple", None, None]]
+        [None, None, None, None, None, None, None, None, None, None]]
 direction = ""
 
 
+
 def drawBoard():
+    print("draw", grid)
     for k in range(GRIDSIZE):
         for i in range(GRIDSIZE):
             rectangle(i, k, i + 1, k + 1)
 
-    for i in range(len(data)):
-        for u in range(len(data[i])):
-            if data[i][u] == None: continue
-            if data[i][u] == "Apple":
+    for i in range(len(grid)):
+        for u in range(len(grid[i])):
+            if grid[i][u] == None: continue
+            if grid[i][u] == "Apple":
                 fill(koordTransformation_X(u) - 0.1, koordTransformation_Y(i) - 0.1, "white", "red")
                 continue
             fill(koordTransformation_X(u) - 0.1, koordTransformation_Y(i) - 0.1, "white", "blue")
@@ -53,6 +62,7 @@ def koordTransformation_Y(y):
 makeGPanel(-1, GRIDSIZE + 1, -1, GRIDSIZE + 1, keyPressed=onKeyPressed)
 
 drawBoard()
+    
 
 # print(koordTransformation(1,0))
 # print(koordTransformation(2,0))
