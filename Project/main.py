@@ -1,6 +1,7 @@
 from GameState import *
 from random import randint
 from tiger import *
+from time import *
 
 #Snake Game in 10x10 grid
 
@@ -9,8 +10,8 @@ GRIDSIZE = 10
 
 
 GameState = GameState(GRIDSIZE)
-gui = tiger()
-apple = False
+gui = tiger(GRIDSIZE)
+APPLE = False
 
 # Returns a free GridSpot
 def getFreeRadomGridSpot(grid):
@@ -25,10 +26,10 @@ def getFreeRadomGridSpot(grid):
 
 
 class direction(Enum):
-    up = "uparror"
-    down = "downarror"
-    right = "rightarror"
-    left = "leftarror"
+    up = "up"
+    down = "down"
+    right = "right"
+    left = "let"
 
 
 def move():
@@ -108,16 +109,18 @@ def debug():
 # Game Tick every 0.5 Seconds
 def tick():
     debug()
-    if not apple:
-        print(getFreeRadomGridSpot(GameState.getGrid()))
-        pass
     move()
-    updateGrid(GameState.getSnake(), getFreeRadomGridSpot(GameState.getGrid()))
 
+    if GameState.getAppleBool():
+        updateGrid(GameState.getSnake(), None)
+    else:
+        updateGrid(GameState.getSnake(), getFreeRadomGridSpot(GameState.getGrid()))
+        GameState.setAppleBool(True)
 
 def updateGrid(snake, applepos):
     grid = list()
 
+    # Make new "empty" List
     for i in range(GRIDSIZE):
         row = list()
         for y in range(GRIDSIZE):
@@ -131,7 +134,9 @@ def updateGrid(snake, applepos):
         grid[ey][ex] = GameState.gridStates.snake
         pass
 
-    grid[applepos[0]][applepos[1]] = GameState.gridStates.apple
+    if applepos != None:
+        grid[applepos[0]][applepos[1]] = GameState.gridStates.apple
+
     GameState.setGrid(grid)
     gui.updateGrid(grid)
     print(grid)
@@ -139,7 +144,7 @@ def updateGrid(snake, applepos):
 
 
 while (True):
-    time.sleep(0.5)
+    sleep(0.5)
     tick()
     print("tick")
 

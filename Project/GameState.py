@@ -9,6 +9,7 @@ class GameState:
 
     applex = 0
     appley = 0
+    appleBool = False;
 
     class gridStates(Enum):
         snake = "Snake"
@@ -55,3 +56,9 @@ class GameState:
 
     def setSnake(self, newSnake):
         self.snake = newSnake
+
+    def setAppleBool(self, boole):
+        self.appleBool = boole
+
+    def getAppleBool(self):
+        self.appleBool
