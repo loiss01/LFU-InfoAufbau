@@ -11,7 +11,6 @@ GRIDSIZE = 10
 
 GameState = GameState(GRIDSIZE)
 gui = tiger(GRIDSIZE)
-APPLE = False
 
 # Returns a free GridSpot
 def getFreeRadomGridSpot(grid):
@@ -25,20 +24,12 @@ def getFreeRadomGridSpot(grid):
     return freeGridSpots[randint(0, len(freeGridSpots) - 1)]
 
 
-class direction(Enum):
-    up = "up"
-    down = "down"
-    right = "right"
-    left = "let"
-
-
 def move():
     # Check if player is pressing a key
-    movement = direction.right
     newSnake = list()
 
     # If the Player goes to the right
-    if movement == direction.right:
+    if gui.getDir() == "right":
 
         for i in range(len(GameState.getSnake())):
             if i == 0:
@@ -54,7 +45,7 @@ def move():
         GameState.setSnake(newSnake)
         print(newSnake)
 
-    if movement == direction.left:
+    if gui.getDir() == "left":
 
         for i in range(len(GameState.getSnake())):
             if i == 0:
@@ -69,7 +60,7 @@ def move():
             newSnake.append(GameState.getSnake()[i])
         GameState.setSnake(newSnake)
 
-    if movement == direction.up:
+    if gui.getDir() == "up":
 
         for i in range(len(GameState.getSnake())):
             if i == 0:
@@ -84,7 +75,7 @@ def move():
             newSnake.append(GameState.getSnake()[i])
         GameState.setSnake(newSnake)
 
-    if movement == direction.down:
+    if gui.getDir() == "down":
 
         for i in range(len(GameState.getSnake())):
             if i == 0:
@@ -104,20 +95,25 @@ def move():
 def debug():
     print("Debug", GameState.getSnake())
     print("Debug", GameState.getGrid())
+    pass
 
-
-# Game Tick every 0.5 Seconds
+# Game Tick every 0. Seconds
 def tick():
-    debug()
+    #debug()
     move()
-
-    if GameState.getAppleBool():
-        updateGrid(GameState.getSnake(), None)
+    if GameState.appleBool:
+        updateGrid(GameState.getSnake())
     else:
-        updateGrid(GameState.getSnake(), getFreeRadomGridSpot(GameState.getGrid()))
-        GameState.setAppleBool(True)
+        AppleKords = getFreeRadomGridSpot(GameState.getGrid())
 
-def updateGrid(snake, applepos):
+        GameState.applex = AppleKords[0]
+        GameState.appley = AppleKords[1]
+
+        updateGrid(GameState.getSnake())
+        GameState.appleBool = True
+
+
+def updateGrid(snake):
     grid = list()
 
     # Make new "empty" List
@@ -134,19 +130,20 @@ def updateGrid(snake, applepos):
         grid[ey][ex] = GameState.gridStates.snake
         pass
 
-    if applepos != None:
-        grid[applepos[0]][applepos[1]] = GameState.gridStates.apple
+    if GameState.appleBool:
+        grid[GameState.applex][GameState.appley] = GameState.gridStates.apple
 
     GameState.setGrid(grid)
     gui.updateGrid(grid)
-    print(grid)
+    #print(grid)
     
 
 
 while (True):
-    sleep(0.5)
+    sleep(0.25)
     tick()
-    print("tick")
+    print(GameState.applex, " ", GameState.appley, " - ", GameState.appleBool)
+    #print("tick")
 
 #tick()
 #debug()

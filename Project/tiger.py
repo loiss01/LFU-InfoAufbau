@@ -5,7 +5,7 @@ class tiger:
     def __init__(self, GRIDSIZE):
         self.GRIDSIZE = GRIDSIZE
         makeGPanel(-1, self.GRIDSIZE + 1, -1, self.GRIDSIZE + 1, keyPressed=self.onKeyPressed)
-        self.drawBoard()
+        #self.drawBoard()
         pass
 
     def updateGrid(self, grid):
@@ -29,7 +29,7 @@ class tiger:
 
 
     def drawBoard(self):
-        print("draw", self.grid)
+        #print("draw", self.grid)
         for k in range(self.GRIDSIZE):
             for i in range(self.GRIDSIZE):
                 rectangle(i, k, i + 1, k + 1)
@@ -48,13 +48,13 @@ class tiger:
 
     def onKeyPressed(self, key_code):
         if (key_code == 38):
-            self.direction = self.direction.up
+            self.direction = "down"
         if (key_code == 39):
-            self.direction = self.direction.right
+            self.direction = "right"
         if (key_code == 40):
-            self.direction = self.direction.down
+            self.direction = "up"
         if (key_code == 37):
-            self.direction = self.direction.left
+            self.direction = "left"
         print("Keychanged ", key_code)
 
 
@@ -63,9 +63,11 @@ class tiger:
 
 
     def koordTransformation_Y(self,y):
-        return self.GRIDSIZE - y
+        #return self.GRIDSIZE - y
+        return y
 
-
+    def getDir(self):
+        return self.direction
 
 
 
