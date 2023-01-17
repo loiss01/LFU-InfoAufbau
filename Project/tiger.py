@@ -28,7 +28,7 @@ class tiger:
     direction = "right"
 
     def drawBoard(self):
-        print("draw", self.grid)
+        #print("draw", self.grid)
 
         # Draw Grid
         for k in range(self.GRIDSIZE):
@@ -86,16 +86,6 @@ class tiger:
             self.direction = "left"
             print("Keychanged ", key_code, " -- left")
 
-
-
-
-    def koordTransformation_X(self, x):
-        return x
-
-
-    def koordTransformation_Y(self,y):
-        #return self.GRIDSIZE - y
-        return y
 
 
     # Returns the current Direction the snake should move

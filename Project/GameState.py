@@ -7,6 +7,9 @@ class GameState:
     grid = list()
     snake = list()
 
+    lastSegment = (0, 0)
+
+
     applex = 0
     appley = 0
     appleBool = False
