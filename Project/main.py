@@ -171,7 +171,7 @@ def updateGrid(snake):
     gamestate.setGrid(grid)
     gui.updateGrid(grid)
     #print(grid)
-    
+
 
 def gameover():
     print("GAME OVER, Score: ", gamestate.size)
@@ -179,5 +179,8 @@ def gameover():
 
 while (True):
     sleep(0.25)
-    tick()
+    try:
+        tick()
+    except Exception:
+        gameover()
 
